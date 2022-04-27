@@ -1,0 +1,6 @@
+export const APP = 'App'
+export const ACCOUNT_SCREEN = 'AccountScreen'
+export const BALANCER_SCREEN = 'BalancerScreen'
+export const MARKET_SCREEN = 'MarketScreen'
+export const NFT_SCREEN = 'NFTScreen'
+export const TRADE_SCREEN = 'TradeScreen'
