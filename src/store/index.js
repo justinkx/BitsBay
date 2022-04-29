@@ -1,6 +1,6 @@
-import { createStore, applyMiddleware } from 'redux'
+import { configureStore } from '@reduxjs/toolkit'
+
 import createSagaMiddleware from 'redux-saga'
-import { composeWithDevTools } from 'redux-devtools-extension'
 import reduxWebsocket from '@giantmachines/redux-websocket'
 
 import rootSaga from './rootSaga'
@@ -11,10 +11,12 @@ const sagaMiddleware = createSagaMiddleware()
 // Create the middleware instance.
 const reduxWebsocketMiddleware = reduxWebsocket()
 
-const composedEnhancers = composeWithDevTools(
-  applyMiddleware(sagaMiddleware, reduxWebsocketMiddleware)
-)
-const store = createStore(rootReducer, composedEnhancers)
+const store = configureStore({
+  reducer: rootReducer,
+  // eslint-disable-next-line max-len
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat([sagaMiddleware, reduxWebsocketMiddleware]),
+  devTools: true,
+})
 sagaMiddleware.run(rootSaga)
 if (module.hot) {
   module.hot.accept(() => {
