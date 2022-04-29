@@ -31,6 +31,9 @@ module.exports = {
     'react/function-component-definition': 0,
     'no-unused-vars': 0,
     'react/jsx-no-constructed-context-values': 0,
+    'import/no-import-module-exports': 0,
+    'default-param-last': 0,
+    'import/no-extraneous-dependencies': 0,
   },
   globals: {
     fetch: false,
