@@ -1,10 +1,10 @@
 import React from 'react'
-import { createNativeStackNavigator } from 'react-native-screens/native-stack'
+import { createStackNavigator } from '@react-navigation/stack'
 
 import { APP } from './Navigation.constants'
 import TabNavigator from './TabNavigation'
 
-const Stack = createNativeStackNavigator()
+const Stack = createStackNavigator()
 
 const AppNavigation = () => (
   <Stack.Navigator>
