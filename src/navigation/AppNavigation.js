@@ -8,7 +8,14 @@ const Stack = createNativeStackNavigator()
 
 const AppNavigation = () => (
   <Stack.Navigator>
-    <Stack.Screen name={APP} component={TabNavigator} />
+    <Stack.Screen
+      options={{
+        headerShown: false,
+        headerHideShadow: true,
+      }}
+      name={APP}
+      component={TabNavigator}
+    />
   </Stack.Navigator>
 )
 
