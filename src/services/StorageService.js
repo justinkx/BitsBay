@@ -20,8 +20,8 @@ const setStorageItem = (key, value) => AsyncStorage.setItem(key, value)
 
 const getStorageItem = async (key) => {
   try {
-    const value = await AsyncStorage.getItem(key)
-    return value ? value : null
+    const value = (await AsyncStorage.getItem(key)) || null
+    return value
   } catch (error) {
     throw error
   }

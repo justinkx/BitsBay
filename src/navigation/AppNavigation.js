@@ -6,17 +6,17 @@ import TabNavigator from './TabNavigation'
 
 const Stack = createStackNavigator()
 
-const AppNavigation = () => (
-  <Stack.Navigator>
-    <Stack.Screen
-      options={{
-        headerShown: false,
-        headerHideShadow: true,
-      }}
-      name={APP}
-      component={TabNavigator}
-    />
-  </Stack.Navigator>
-)
-
-export default AppNavigation
+export default function AppNavigation() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        options={{
+          headerShown: false,
+          headerHideShadow: true,
+        }}
+        name={APP}
+        component={TabNavigator}
+      />
+    </Stack.Navigator>
+  )
+}

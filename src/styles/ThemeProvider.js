@@ -9,24 +9,27 @@ const ThemeContextProvider = ({ children }) => {
   const [themeID, setThemeID] = useState()
 
   useEffect(() => {
-    ;(async () => {
+    async function init() {
       const storedThemeID = await getTheme()
       setThemeID(storedThemeID)
-    })()
+    }
+    init()
   }, [])
 
   const themeService = useMemo(
     () => ({
-      getTheme: () => Themes[themeID],
       setTheme: async (themeId = 'dark') => {
         setThemeID(themeId)
-        await setTheme(themeId)
+        setTheme(themeId)
       },
+      theme: Themes[themeID],
+      themeID,
     }),
     [themeID]
   )
+
   return (
-    <ThemeContext.Provider value={{ themeService, theme: Themes[themeID] }}>
+    <ThemeContext.Provider value={{ ...themeService }}>
       {themeID ? children : null}
     </ThemeContext.Provider>
   )
