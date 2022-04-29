@@ -1,7 +1,7 @@
 import { UPDATE_APP_STATE, UPDATE_NET_STATE } from 'actions/application.actions'
 
 const initialState = {
-  appState: 'active',
+  appState: 'background',
   netState: {
     isConnected: true,
   },
