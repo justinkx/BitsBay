@@ -1,4 +1,4 @@
-import { put, take, call, spawn } from 'redux-saga/effects'
+import { put, take, call, spawn, select } from 'redux-saga/effects'
 import NetInfo from '@react-native-community/netinfo'
 import { eventChannel } from 'redux-saga'
 import { AppState } from 'react-native'
@@ -6,9 +6,12 @@ import { AppState } from 'react-native'
 import {
   NET_STATE_CHANGE,
   APPSTATE_CHANGE,
+  UPDATE_NET_STATE,
   updateAppState,
   updateNetState,
+  applicationReady,
 } from 'actions/application.actions'
+import { isInternetSelector } from '../selectors/application.selector'
 
 function* handleAppStateChange(nextState) {
   yield put(updateAppState(nextState))
@@ -65,4 +68,11 @@ function* applicationEvents() {
 
 export default function* applicationSaga() {
   yield spawn(applicationEvents)
+
+  let internetReachable = yield select(isInternetSelector)
+  while (!internetReachable) {
+    const { netState } = yield take(UPDATE_NET_STATE)
+    internetReachable = netState?.isInternetReachable
+  }
+  yield put(applicationReady())
 }

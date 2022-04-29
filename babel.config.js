@@ -18,6 +18,7 @@ module.exports = function (api) {
             sagas: './src/store/sagas',
             actions: './src/store/actions',
             reducers: './src/store/reducers',
+            selectors: './src/store/selectors',
           },
         },
       ],
