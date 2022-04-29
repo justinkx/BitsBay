@@ -6,6 +6,10 @@ const netStateNode = createSelector(
   getReducer,
   (application) => application.netState || {}
 )
+const socketNode = createSelector(
+  getReducer,
+  (application) => application.socket || {}
+)
 
 export const isInternetSelector = createSelector(
   netStateNode,
@@ -15,4 +19,19 @@ export const isInternetSelector = createSelector(
 export const getAppState = createSelector(
   getReducer,
   (application) => application.appState || 'background'
+)
+
+export const isAppActive = createSelector(
+  getReducer,
+  (application) => application.appState === 'active' || false
+)
+
+export const isSocketLiveSelector = createSelector(
+  socketNode,
+  (socket) => socket.isConnected || false
+)
+
+export const isSocketClosedSelector = createSelector(
+  socketNode,
+  (socket) => socket.isClosed
 )

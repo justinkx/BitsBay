@@ -34,6 +34,7 @@ module.exports = {
     'import/no-import-module-exports': 0,
     'default-param-last': 0,
     'import/no-extraneous-dependencies': 0,
+    'import/prefer-default-export': 0,
   },
   globals: {
     fetch: false,

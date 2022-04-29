@@ -9,7 +9,7 @@ import rootReducer from './rootReducer'
 const sagaMiddleware = createSagaMiddleware()
 
 // Create the middleware instance.
-const reduxWebsocketMiddleware = reduxWebsocket()
+const reduxWebsocketMiddleware = reduxWebsocket({ reconnectOnClose: false })
 
 const store = configureStore({
   reducer: rootReducer,

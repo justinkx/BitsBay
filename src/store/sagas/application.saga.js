@@ -1,4 +1,12 @@
-import { put, take, call, spawn, select } from 'redux-saga/effects'
+import {
+  put,
+  take,
+  call,
+  spawn,
+  select,
+  takeEvery,
+  all,
+} from 'redux-saga/effects'
 import NetInfo from '@react-native-community/netinfo'
 import { eventChannel } from 'redux-saga'
 import { AppState } from 'react-native'
@@ -10,17 +18,53 @@ import {
   updateAppState,
   updateNetState,
   applicationReady,
+  connectSocket,
+  disconnectSocket,
 } from 'actions/application.actions'
-import { isInternetSelector } from '../selectors/application.selector'
+import {
+  isInternetSelector,
+  isSocketLiveSelector,
+  isSocketClosedSelector,
+} from '../selectors/application.selector'
 
 function* handleAppStateChange(nextState) {
   yield put(updateAppState(nextState))
+
+  const isSocketOnline = yield select(isSocketLiveSelector)
+  console.log({ nextState, isSocketOnline })
+  if (nextState === 'background') {
+    yield put(disconnectSocket())
+  } else if (nextState === 'active') {
+    const isSocketClosed = yield select(isSocketClosedSelector)
+
+    if (isSocketClosed) {
+      yield put(connectSocket())
+    } else {
+      yield take('REDUX_WEBSOCKET::CLOSED')
+      yield put(connectSocket())
+    }
+  }
 }
 
-function* handleNetState(netState) {
+function* handleNetState(netState = {}) {
   yield put(updateNetState(netState))
 }
 
+function* onApplicationChannelEvent({ type, payload }) {
+  switch (type) {
+    case APPSTATE_CHANGE: {
+      yield call(handleAppStateChange, payload)
+      break
+    }
+    case NET_STATE_CHANGE: {
+      yield call(handleNetState, payload)
+      break
+    }
+    default: {
+      // no actions
+    }
+  }
+}
 function* applicationEvents() {
   const channel = eventChannel((emitter) => {
     const onAppStateChange = (nextAppState) => {
@@ -30,7 +74,7 @@ function* applicationEvents() {
       })
     }
     const appStateListener = AppState.addEventListener(
-      APPSTATE_CHANGE,
+      'change',
       onAppStateChange
     )
 
@@ -48,22 +92,7 @@ function* applicationEvents() {
     }
   })
 
-  while (true) {
-    const { type, payload } = yield take(channel)
-    switch (type) {
-      case APPSTATE_CHANGE: {
-        yield call(handleAppStateChange, payload)
-        break
-      }
-      case NET_STATE_CHANGE: {
-        yield call(handleNetState, payload)
-        break
-      }
-      default: {
-        // no actions
-      }
-    }
-  }
+  yield takeEvery(channel, onApplicationChannelEvent)
 }
 
 export default function* applicationSaga() {
@@ -74,5 +103,5 @@ export default function* applicationSaga() {
     const { netState } = yield take(UPDATE_NET_STATE)
     internetReachable = netState?.isInternetReachable
   }
-  yield put(applicationReady())
+  yield all([put(applicationReady()), put(connectSocket())])
 }

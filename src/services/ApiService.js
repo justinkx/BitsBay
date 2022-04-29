@@ -12,4 +12,4 @@ const getAllAssets = async () => {
   }
 }
 
-export default { getAllAssets }
+export { getAllAssets }
