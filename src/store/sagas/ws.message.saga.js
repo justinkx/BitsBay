@@ -1,4 +1,4 @@
-import { put, select, takeEvery, all } from "redux-saga/effects";
+import { put, takeEvery, all } from "redux-saga/effects";
 import _assign from "lodash/assign";
 import _identity from "lodash/identity";
 import _pickBy from "lodash/pickBy";
@@ -17,7 +17,7 @@ function* reduxWebsocketMessage(action) {
         switch (parsedMessage?.stream) {
             case '!ticker@arr':
                 const tickers = tickerTransform(parsedMessage.data);
-                yield put(saveTicker(tickers))
+               return yield put(saveTicker(tickers))
         }
     } catch {}
 }
@@ -25,6 +25,5 @@ function* reduxWebsocketMessage(action) {
 export default function* wsMessageSaga() {
     yield all([
       takeEvery(MESSAGE, reduxWebsocketMessage),
-      takeEvery(OPEN, reduxWebsocketOpen),
     ]);
   }

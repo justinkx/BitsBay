@@ -35,6 +35,8 @@ module.exports = {
     'default-param-last': 0,
     'import/no-extraneous-dependencies': 0,
     'import/prefer-default-export': 0,
+    'no-empty': 0,
+    'default-case': 0
   },
   globals: {
     fetch: false,
