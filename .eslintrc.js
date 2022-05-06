@@ -36,7 +36,8 @@ module.exports = {
     'import/no-extraneous-dependencies': 0,
     'import/prefer-default-export': 0,
     'no-empty': 0,
-    'default-case': 0
+    'default-case': 0,
+    'consistent-return': 0,
   },
   globals: {
     fetch: false,

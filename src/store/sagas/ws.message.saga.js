@@ -15,9 +15,10 @@ function* reduxWebsocketMessage(action) {
 
   try {
     switch (parsedMessage?.stream) {
-      case '!ticker@arr':
+      case '!ticker@arr': {
         const tickers = tickerTransform(parsedMessage.data)
         return yield put(saveTicker(tickers))
+      }
     }
   } catch {}
 }
