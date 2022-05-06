@@ -18,11 +18,10 @@ const reduxWebsocketMiddleware = reduxWebsocket({
 const store = configureStore({
   reducer: rootReducer,
   // eslint-disable-next-line max-len
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      serializableCheck: false,
-      immutableCheck: false,
-    }).concat([sagaMiddleware, reduxWebsocketMiddleware]),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+    serializableCheck: false,
+    immutableCheck: false,
+  }).concat([sagaMiddleware, reduxWebsocketMiddleware]),
   devTools: true,
 })
 sagaMiddleware.run(rootSaga)
