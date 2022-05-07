@@ -1,6 +1,10 @@
 import React, { memo, useMemo } from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { AntDesign, MaterialCommunityIcons, FontAwesome5 } from '@expo/vector-icons'
+import {
+  AntDesign,
+  MaterialCommunityIcons,
+  FontAwesome5,
+} from '@expo/vector-icons'
 
 import AccountScreen from 'screens/Account'
 import BalancesScreen from 'screens/Balances'
@@ -16,11 +20,13 @@ import {
   TRADE_SCREEN,
 } from './Navigation.constants'
 import { withTheme } from '../hoc/withTheme'
+import TabHeader from './tabHeader'
 
 const Tab = createBottomTabNavigator()
 
 function TabNavigator({ theme }) {
   const {
+    screenOptions,
     marketOptions,
     tradeOptions,
     balanceOptions,
@@ -28,6 +34,15 @@ function TabNavigator({ theme }) {
     accountOptions,
   } = useMemo(
     () => ({
+      screenOptions: {
+        tabBarActiveTintColor: theme.iconActive,
+        tabBarInactiveTintColor: theme.iconInActive,
+        tabBarStyle: [{ backgroundColor: theme.backgroundColor }],
+        headerStyle: [{ backgroundColor: theme.backgroundColor }],
+        header: ({ options }) => (
+          <TabHeader style={options.headerStyle} theme={theme} />
+        ),
+      },
       marketOptions: {
         title: '',
         tabBarLabel: 'Markets',
@@ -90,10 +105,7 @@ function TabNavigator({ theme }) {
   return (
     <Tab.Navigator
       initialRouteName={MARKET_SCREEN}
-      screenOptions={{
-        tabBarActiveTintColor: theme.iconActive,
-        tabBarInactiveTintColor: theme.iconInActive,
-      }}
+      screenOptions={screenOptions}
     >
       <Tab.Screen
         options={marketOptions}
