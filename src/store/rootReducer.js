@@ -19,7 +19,7 @@ const rootPersistConfig = {
 
 const storagePersistConfig = {
   key: 'storage',
-  AsyncStorage,
+  storage: AsyncStorage,
   stateReconciler: autoMergeLevel2,
 }
 
