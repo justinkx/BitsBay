@@ -38,6 +38,7 @@ module.exports = {
     'no-empty': 0,
     'default-case': 0,
     'consistent-return': 0,
+    'react/no-unstable-nested-components': 0,
   },
   globals: {
     fetch: false,

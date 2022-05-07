@@ -1,8 +1,6 @@
-import React from 'react'
+import React, { memo, useMemo } from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { AntDesign } from '@expo/vector-icons'
-import { MaterialCommunityIcons } from '@expo/vector-icons'
-import { FontAwesome5 } from '@expo/vector-icons'
+import { AntDesign, MaterialCommunityIcons, FontAwesome5 } from '@expo/vector-icons'
 
 import AccountScreen from 'screens/Account'
 import BalancesScreen from 'screens/Balances'
@@ -17,90 +15,108 @@ import {
   NFT_SCREEN,
   TRADE_SCREEN,
 } from './Navigation.constants'
+import { withTheme } from '../hoc/withTheme'
 
 const Tab = createBottomTabNavigator()
 
-function TabNavigator() {
+function TabNavigator({ theme }) {
+  const {
+    marketOptions,
+    tradeOptions,
+    balanceOptions,
+    nftOptions,
+    accountOptions,
+  } = useMemo(
+    () => ({
+      marketOptions: {
+        title: '',
+        tabBarLabel: 'Markets',
+        tabBarIcon: ({ focused, size }) => (
+          <AntDesign
+            name="areachart"
+            size={size}
+            color={focused ? theme.iconActive : theme.iconInActive}
+          />
+        ),
+      },
+      tradeOptions: {
+        title: '',
+        tabBarLabel: 'Trade',
+        tabBarIcon: ({ focused, size }) => (
+          <MaterialCommunityIcons
+            name="shopping"
+            size={size}
+            color={focused ? theme.iconActive : theme.iconInActive}
+          />
+        ),
+      },
+      balanceOptions: {
+        title: '',
+        tabBarLabel: 'Balance',
+        tabBarIcon: ({ focused, size }) => (
+          <AntDesign
+            name="piechart"
+            size={size}
+            color={focused ? theme.iconActive : theme.iconInActive}
+          />
+        ),
+      },
+      nftOptions: {
+        title: '',
+        tabBarLabel: 'NFT',
+        tabBarIcon: ({ focused, size }) => (
+          <FontAwesome5
+            name="photo-video"
+            size={size}
+            color={focused ? theme.iconActive : theme.iconInActive}
+          />
+        ),
+      },
+      accountOptions: {
+        title: '',
+        tabBarLabel: 'Account',
+        tabBarIcon: ({ focused, size }) => (
+          <MaterialCommunityIcons
+            name="account-circle"
+            size={size}
+            color={focused ? theme.iconActive : theme.iconInActive}
+          />
+        ),
+      },
+    }),
+    [theme]
+  )
+
   return (
     <Tab.Navigator
       initialRouteName={MARKET_SCREEN}
       screenOptions={{
-        tabBarActiveTintColor: '#0ebef3',
-        tabBarInactiveTintColor: '#70839d',
+        tabBarActiveTintColor: theme.iconActive,
+        tabBarInactiveTintColor: theme.iconInActive,
       }}
     >
       <Tab.Screen
-        options={{
-          title: '',
-          tabBarLabel: 'Markets',
-          tabBarIcon: ({ focused, size }) => (
-            <AntDesign
-              name='areachart'
-              size={size}
-              color={focused ? '#0ebef3' : '#70839d'}
-            />
-          ),
-        }}
+        options={marketOptions}
         name={MARKET_SCREEN}
         component={MarketScreen}
       />
       <Tab.Screen
-        options={{
-          title: '',
-          tabBarLabel: 'Trade',
-          tabBarIcon: ({ focused, size }) => (
-            <MaterialCommunityIcons
-              name='shopping'
-              size={size}
-              color={focused ? '#0ebef3' : '#70839d'}
-            />
-          ),
-        }}
+        options={tradeOptions}
         name={TRADE_SCREEN}
         component={TradeScreen}
       />
       <Tab.Screen
-        options={{
-          title: '',
-          tabBarLabel: 'NFT',
-          tabBarIcon: ({ focused, size }) => (
-            <FontAwesome5
-              name='photo-video'
-              size={size}
-              color={focused ? '#0ebef3' : '#70839d'}
-            />
-          ),
-        }}
+        options={nftOptions}
         name={NFT_SCREEN}
         component={NftScreen}
       />
       <Tab.Screen
-        options={{
-          title: '',
-          tabBarLabel: 'Balance',
-          tabBarIcon: ({ focused, size }) => (
-            <AntDesign
-              name='piechart'
-              size={size}
-              color={focused ? '#0ebef3' : '#70839d'}
-            />
-          ),
-        }}
+        options={balanceOptions}
         name={BALANCER_SCREEN}
         component={BalancesScreen}
       />
       <Tab.Screen
-        options={{
-          title: '',
-          tabBarLabel: 'Account',
-          tabBarIcon: ({ focused, size }) => (
-            <MaterialCommunityIcons
-              name='account-circle'
-              size={size}
-              color={focused ? '#0ebef3' : '#70839d'}
-            />
-          ),
-        }}
+        options={accountOptions}
         name={ACCOUNT_SCREEN}
         component={AccountScreen}
       />
@@ -108,4 +124,4 @@ function TabNavigator() {
   )
 }
 
-export default TabNavigator
+export default memo(withTheme(TabNavigator))
