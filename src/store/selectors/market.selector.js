@@ -3,6 +3,7 @@ import _includes from 'lodash/includes'
 import _values from 'lodash/values'
 import _filter from 'lodash/filter'
 import _flow from 'lodash/flow'
+import _pick from 'lodash/pick'
 
 import { favouritePairSelector } from './storage.selector'
 
@@ -10,6 +11,15 @@ const assetReducer = (state) => state.market
 
 const filterBySearchValue = ({ asset = {}, searchValue = '' }) => asset?.symbol?.includes(searchValue) || asset?.fullName?.includes(searchValue)
 const filterByTag = ({ asset = {}, tag = '' }) => _includes(asset?.tags, tag)
+
+export const favouriteAssetSelector = createSelector(
+  [assetReducer, favouritePairSelector],
+  (market, fav = []) => {
+    const { assets = {} } = market
+
+    return _pick(assets, fav)
+  }
+)
 
 export const marketAssetSelector = createSelector(
   assetReducer,
