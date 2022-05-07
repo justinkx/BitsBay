@@ -1,13 +1,15 @@
 const Themes = {
   light: {
     key: 'light',
-    backgroundColor: '#ffffff',
-    color: '#000000',
+    iconActive: '#70839d',
+    iconInActive: '#21293a',
+    backgroundColor: '#21293a',
   },
   dark: {
     key: 'dark',
-    backgroundColor: '#2D3436',
-    color: '#ffffff',
+    iconActive: '#70839d',
+    iconInActive: '#21293a',
+    backgroundColor: '#21293a',
   },
 }
 
