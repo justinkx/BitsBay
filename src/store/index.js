@@ -1,4 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
+import { format } from 'date-fns'
+import { persistStore } from 'redux-persist'
 
 import createSagaMiddleware from 'redux-saga'
 import reduxWebsocket from '@giantmachines/redux-websocket'
@@ -9,12 +11,18 @@ import rootReducer from './rootReducer'
 const sagaMiddleware = createSagaMiddleware()
 
 // Create the middleware instance.
-const reduxWebsocketMiddleware = reduxWebsocket({ reconnectOnClose: false })
+const reduxWebsocketMiddleware = reduxWebsocket({
+  reconnectOnClose: false,
+  dateSerializer: (date) => format(date, "yyyy-MM-dd'T'HH:mm:ss.SSSxxx"),
+})
 
 const store = configureStore({
   reducer: rootReducer,
   // eslint-disable-next-line max-len
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat([sagaMiddleware, reduxWebsocketMiddleware]),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+    serializableCheck: false,
+    immutableCheck: false,
+  }).concat([sagaMiddleware, reduxWebsocketMiddleware]),
   devTools: true,
 })
 sagaMiddleware.run(rootSaga)
@@ -25,4 +33,5 @@ if (module.hot) {
     store.replaceReducer(nextRootReducer)
   })
 }
+export const persistor = persistStore(store)
 export default store
