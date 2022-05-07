@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { format } from 'date-fns'
+import { persistStore } from 'redux-persist'
 
 import createSagaMiddleware from 'redux-saga'
 import reduxWebsocket from '@giantmachines/redux-websocket'
@@ -32,4 +33,5 @@ if (module.hot) {
     store.replaceReducer(nextRootReducer)
   })
 }
+export const persistor = persistStore(store)
 export default store
