@@ -3,8 +3,9 @@ const Themes = {
     key: 'light',
     primary: 'black',
     iconActive: '#0ebef3',
-    iconInActive: '#70839d',
-    backgroundColor: '#21293a',
+    iconInActive: '#c3ccd8',
+    backgroundColor: '#35558b',
+    card: '#eaedf1',
   },
   dark: {
     key: 'dark',
@@ -12,6 +13,7 @@ const Themes = {
     iconActive: '#0ebef3',
     iconInActive: '#70839d',
     backgroundColor: '#21293a',
+    card: '#37445a',
   },
 }
 
