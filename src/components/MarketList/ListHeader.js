@@ -1,14 +1,22 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import { StyleSheet, View } from 'react-native'
+import React, { memo } from 'react'
 
-const ListHeader = () => {
+import SearchBar from '../SearchBar'
+
+const ListHeader = ({ searchValue, setSearchValue, layoutMode, setMode }) => {
   return (
-    <View>
-      <Text>ListHeader</Text>
+    <View style={styles.container}>
+      <SearchBar searchValue={searchValue} setSearchValue={setSearchValue} />
     </View>
   )
 }
 
-export default ListHeader
+export default memo(ListHeader)
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+})

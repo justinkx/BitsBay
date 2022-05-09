@@ -7,6 +7,7 @@ import {
   marketAssetSelector,
   favouriteAssetSelector,
 } from '../../store/selectors/market.selector'
+import ListHeader from '../../components/MarketList/ListHeader'
 
 const MarketList = ({ tag, isFav, isAll }) => {
   const [searchValue, setSearchValue] = useState('')
@@ -26,12 +27,19 @@ const MarketList = ({ tag, isFav, isAll }) => {
       )
   // console.log(assets?.length, tag)
   return (
-    <View>
-      <Text>MarketList</Text>
+    <View style={styles.container}>
+      <ListHeader
+        searchValue={searchValue}
+        setSearchValue={setSearchValue}
+        layoutMode={layoutMode}
+        setMode={setMode}
+      />
     </View>
   )
 }
 
 export default memo(MarketList)
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  container: { padding: 8, flex: 1 },
+})

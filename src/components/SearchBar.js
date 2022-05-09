@@ -10,6 +10,7 @@ const SearchBar = ({
   searchValue,
   inputStyle = {},
   containerStyle = {},
+  lines = 1,
 }) => {
   const onChange = useCallback(
     (value) => {
@@ -30,8 +31,11 @@ const SearchBar = ({
       <TextInput
         value={searchValue}
         onChangeText={onChange}
-        placeHolder="search"
+        placeHolder='search'
         style={[styles.input, { color: theme.primary }, inputStyle]}
+        multiline={lines > 1}
+        numberOfLines={lines}
+        textAlignVertical={lines > 1 ? 'top' : 'auto'}
       />
     </View>
   )
@@ -44,10 +48,14 @@ const styles = StyleSheet.create({
     borderRadius: 17,
     height: 35,
     opacity: 0.5,
+    flex: 1,
+    alignItems: 'center',
+    flexDirection: 'row',
+    paddingHorizontal: 8,
   },
   input: {
     flex: 1,
     justifyContent: 'center',
-    padding: 5,
+    paddingLeft: 5,
   },
 })
