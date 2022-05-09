@@ -39,6 +39,7 @@ module.exports = {
     'default-case': 0,
     'consistent-return': 0,
     'react/no-unstable-nested-components': 0,
+    'jsx-quotes': 0,
   },
   globals: {
     fetch: false,
