@@ -3,10 +3,10 @@ export const BINANCE_BASE_URL = 'https://www.binance.com/'
 export const WS_BASE_URL = 'wss://stream.binance.com:9443/ws'
 
 export const Tags = [
-  // {
-  //   tag: 'favourites',
-  //   display: 'Fav',
-  // },
+  {
+    tag: 'favourites',
+    display: 'Fav',
+  },
   {
     tag: 'all',
     display: 'All',

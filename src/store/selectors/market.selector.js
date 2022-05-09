@@ -20,7 +20,11 @@ export const favouriteAssetSelector = createSelector(
     (searchValue = '') => {
       const { assets = {} } = market
 
-      return _pick(assets, fav)
+      const assetsValues = _values(_pick(assets, fav)) || []
+      return (
+        _filter(assetsValues, (asset) =>
+          filterBySearchValue({ asset, searchValue })) || []
+      )
     }
 )
 
