@@ -10,6 +10,7 @@ import {
 
 const MarketList = ({ tag, isFav, isAll }) => {
   const [searchValue, setSearchValue] = useState('')
+  const [layoutMode, setMode] = useState(0)
 
   const isFocused = useIsFocused()
 
