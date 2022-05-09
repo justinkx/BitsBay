@@ -45,8 +45,8 @@ export default memo(withTheme(SearchBar))
 
 const styles = StyleSheet.create({
   container: {
-    borderRadius: 17,
-    height: 35,
+    borderRadius: 15,
+    height: 30,
     opacity: 0.5,
     flex: 1,
     alignItems: 'center',
@@ -57,5 +57,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     paddingLeft: 5,
+    fontSize: 15,
   },
 })

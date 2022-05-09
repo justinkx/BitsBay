@@ -8,6 +8,7 @@ import {
   favouriteAssetSelector,
 } from '../../store/selectors/market.selector'
 import ListHeader from '../../components/MarketList/ListHeader'
+import MarketFlatList from '../../components/MarketList/MarketFlatList'
 
 const MarketList = ({ tag, isFav, isAll }) => {
   const [searchValue, setSearchValue] = useState('')
@@ -33,6 +34,11 @@ const MarketList = ({ tag, isFav, isAll }) => {
         setSearchValue={setSearchValue}
         layoutMode={layoutMode}
         setMode={setMode}
+      />
+      <MarketFlatList
+        isFocused={isFocused}
+        assets={assets}
+        layoutMode={layoutMode}
       />
     </View>
   )
