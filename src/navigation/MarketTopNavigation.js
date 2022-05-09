@@ -1,6 +1,7 @@
 import React, { memo, useCallback, useMemo } from 'react'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
 import { Ionicons } from '@expo/vector-icons'
+import { StyleSheet } from 'react-native'
 
 import MarketList from 'screens/Markets/MarketList'
 import { Tags } from 'helpers/Constants'
@@ -28,13 +29,7 @@ function MarketTopTabs({ theme }) {
             tag === 'favourites'
               ? ({ color }) => <Ionicons name='star' size={18} color={color} />
               : () => null,
-          tabBarItemStyle: {
-            flexDirection: 'row',
-            height: 40,
-            padding: 0,
-            width: 100,
-            justifyContent: 'center',
-          },
+          tabBarItemStyle: styles.tabBarItemStyle,
           tabBarIconStyle: {
             width: tag === 'favourites' ? 20 : 0,
           },
@@ -70,6 +65,7 @@ function MarketTopTabs({ theme }) {
     <Tab.Navigator
       screenOptions={navigatorTabOptions}
       sceneContainerStyle={{ backgroundColor: theme.backgroundColor }}
+      style={{ backgroundColor: theme.backgroundColor }}
       backBehavior='none'
     >
       {Tags.map(renderScreen)}
@@ -78,3 +74,13 @@ function MarketTopTabs({ theme }) {
 }
 
 export default memo(withTheme(MarketTopTabs))
+
+const styles = StyleSheet.create({
+  tabBarItemStyle: {
+    flexDirection: 'row',
+    height: 40,
+    padding: 0,
+    width: 100,
+    justifyContent: 'center',
+  },
+})

@@ -40,6 +40,9 @@ module.exports = {
     'consistent-return': 0,
     'react/no-unstable-nested-components': 0,
     'jsx-quotes': 0,
+    'operator-linebreak': 0,
+    'implicit-arrow-linebreak': 0,
+    'no-confusing-arrow': 0,
   },
   globals: {
     fetch: false,
