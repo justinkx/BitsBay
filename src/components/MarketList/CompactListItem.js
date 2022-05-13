@@ -1,11 +1,10 @@
-import { StyleSheet, TouchableOpacity, View, Image } from 'react-native'
-import React, { memo, useState } from 'react'
+import { StyleSheet, TouchableOpacity, View } from 'react-native'
+import React, { memo } from 'react'
 import { Entypo } from '@expo/vector-icons'
 import _toLower from 'lodash/toLower'
 import _includes from 'lodash/includes'
 
 import { withTheme } from '../../hoc/withTheme'
-import { COINS } from '../../helpers/AssetList'
 import CryptoIcon from '../Icons'
 
 const CompactListItem = ({ item, layoutMode, theme }) => {
