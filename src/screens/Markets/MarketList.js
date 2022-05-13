@@ -26,7 +26,6 @@ const MarketList = ({ tag, isFav, isAll }) => {
         (state) => marketAssetSelector(state)(searchValue, tag),
         shallowEqual
       )
-  // console.log(assets?.length, tag)
   return (
     <View style={styles.container}>
       <ListHeader
