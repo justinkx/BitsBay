@@ -1,8 +1,12 @@
 import { StyleSheet, TouchableOpacity, View, Image } from 'react-native'
-import React, { memo } from 'react'
+import React, { memo, useState } from 'react'
 import { Entypo } from '@expo/vector-icons'
+import _toLower from 'lodash/toLower'
+import _includes from 'lodash/includes'
 
 import { withTheme } from '../../hoc/withTheme'
+import { COINS } from '../../helpers/AssetList'
+import CryptoIcon from '../Icons'
 
 const CompactListItem = ({ item, layoutMode, theme }) => {
   return (
@@ -10,9 +14,13 @@ const CompactListItem = ({ item, layoutMode, theme }) => {
       <View style={styles.layout1Container}>
         <View style={styles.layout1_coin}>
           <TouchableOpacity style={styles.starButton}>
-            <Entypo name='star' size={24} color={theme.iconActive} />
+            <Entypo name='star' size={22} color={theme.iconActive} />
           </TouchableOpacity>
-          <Image source={{ uri: item?.logo }} style={styles.icon} />
+          <CryptoIcon
+            name={_toLower(item?.name)}
+            size={25}
+            style={styles.icon}
+          />
         </View>
         <View style={styles.layout1_price} />
         <View style={styles.layout1_change} />
@@ -30,7 +38,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  layout1_coin: {},
+  layout1_coin: { flexDirection: 'row' },
   layout1_price: {},
   layout1_change: {},
   starButton: { paddingRight: 10 },
