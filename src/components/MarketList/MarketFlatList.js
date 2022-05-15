@@ -8,7 +8,10 @@ const MarketFlatList = ({ assets, layoutMode }) => {
     ({ item }) => <CompactListItem symbol={item} layoutMode={layoutMode} />,
     [layoutMode]
   )
-  const keyExtractor = useCallback((item) => item, [])
+  const keyExtractor = useCallback(
+    (item) => `${layoutMode === '2' ? '#' : '_'}${item}`,
+    [layoutMode]
+  )
 
   return (
     <FlatList
@@ -17,6 +20,8 @@ const MarketFlatList = ({ assets, layoutMode }) => {
       keyExtractor={keyExtractor}
       contentContainerStyle={styles.list}
       initialNumToRender={10}
+      numColumns={layoutMode === 2 ? 2 : 1}
+      key={layoutMode === 2 ? 2 : 1}
     />
   )
 }

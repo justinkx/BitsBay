@@ -47,6 +47,9 @@ function MarketTopTabs({ theme }) {
       tabBarIndicatorStyle: {
         backgroundColor: theme.iconActive,
       },
+      cardStyle: {
+        backgroundColor: 'transparent',
+      },
       tabBarInactiveTintColor: theme.iconInActive,
       tabBarStyle: {
         backgroundColor: theme.backgroundColor,
@@ -57,6 +60,7 @@ function MarketTopTabs({ theme }) {
       tabBarLabelStyle: {},
       tabBarScrollEnabled: true,
       tabBarBounces: true,
+      lazy: true,
     }),
     [theme]
   )

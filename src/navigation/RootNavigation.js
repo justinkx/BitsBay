@@ -1,21 +1,32 @@
-import React from 'react'
-import { NavigationContainer } from '@react-navigation/native'
+import React, { useMemo } from 'react'
+import { NavigationContainer, DefaultTheme } from '@react-navigation/native'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 
-import ThemeContextProvider from 'styles/ThemeProvider'
-
 import AppNavigation from './AppNavigation'
+import { withTheme } from '../hoc/withTheme'
 
 export const navigationRef = React.createRef(null)
 
-export default function Entry() {
+function Entry({ theme }) {
+  const appTheme = useMemo(
+    () => ({
+      ...DefaultTheme,
+      colors: {
+        ...DefaultTheme.colors,
+        background: theme.backgroundColor,
+        card: theme.backgroundColor,
+      },
+    }),
+    [theme]
+  )
+
   return (
-    <NavigationContainer ref={navigationRef}>
+    <NavigationContainer ref={navigationRef} theme={appTheme}>
       <SafeAreaProvider>
-        <ThemeContextProvider>
-          <AppNavigation />
-        </ThemeContextProvider>
+        <AppNavigation />
       </SafeAreaProvider>
     </NavigationContainer>
   )
 }
+
+export default withTheme(Entry)

@@ -1,5 +1,10 @@
-import { StyleSheet, View, TouchableOpacity } from 'react-native'
-import React, { memo } from 'react'
+import {
+  StyleSheet,
+  View,
+  TouchableOpacity,
+  LayoutAnimation,
+} from 'react-native'
+import React, { memo, useCallback } from 'react'
 import {
   Ionicons,
   FontAwesome5,
@@ -16,25 +21,39 @@ const ListHeader = ({
   setMode,
   theme,
 }) => {
+  const togglelayout = useCallback(
+    (mode) => {
+      LayoutAnimation.configureNext(
+        LayoutAnimation.create(
+          350,
+          LayoutAnimation.Types.easeIn,
+          LayoutAnimation.Properties.scaleX
+        )
+      )
+      setMode(mode)
+    },
+    [setMode]
+  )
+
   return (
     <View style={styles.container}>
       <SearchBar searchValue={searchValue} setSearchValue={setSearchValue} />
       <View style={styles.gridView}>
-        <TouchableOpacity style={styles.button} onPress={() => setMode(0)}>
+        <TouchableOpacity style={styles.button} onPress={() => togglelayout(0)}>
           <MaterialCommunityIcons
             name='equal'
             size={20}
             color={layoutMode === 0 ? theme.iconActive : theme.iconInActive}
           />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={() => setMode(1)}>
+        <TouchableOpacity style={styles.button} onPress={() => togglelayout(1)}>
           <FontAwesome5
             name='equals'
             size={20}
             color={layoutMode === 1 ? theme.iconActive : theme.iconInActive}
           />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={() => setMode(2)}>
+        <TouchableOpacity style={styles.button} onPress={() => togglelayout(2)}>
           <Ionicons
             name='ios-grid'
             size={20}

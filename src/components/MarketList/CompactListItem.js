@@ -51,44 +51,106 @@ const CompactListItem = ({ symbol = 'BTCBUSD', layoutMode, theme }) => {
     <View style={styles.container}>
       <View
         style={[
-          styles.layout1Container,
-          { borderBottomColor: theme.iconInActive },
+          layoutMode === 0 && [
+            styles.layout1Container,
+            { borderBottomColor: theme.iconInActive },
+          ],
+          layoutMode === 1 && [
+            styles.layout2Container,
+            {
+              backgroundColor: theme.tickerCard,
+            },
+          ],
+          layoutMode === 2 && [
+            styles.layout3Container,
+            {
+              backgroundColor: theme.tickerCard,
+            },
+          ],
         ]}
       >
-        <View style={styles.layout1_coin}>
-          <TouchableOpacity onPress={onToggleFav} style={styles.starButton}>
-            <Entypo
-              name='star'
-              size={22}
-              color={isFavourite ? theme.fav : theme.iconInActive}
+        <View
+          style={[styles.layout1_coin, layoutMode === 2 && styles.layout2_coin]}
+        >
+          {layoutMode !== 2 && (
+            <TouchableOpacity onPress={onToggleFav} style={styles.starButton}>
+              <Entypo
+                name='star'
+                size={22}
+                color={isFavourite ? theme.fav : theme.iconInActive}
+              />
+            </TouchableOpacity>
+          )}
+          {layoutMode !== 2 && (
+            <View style={styles.icon}>
+              {/* <CryptoIcon
+                name={_toLower(item?.name)}
+                size={25}
+                style={styles.icon}
+              /> */}
+            </View>
+          )}
+          {layoutMode !== 2 && (
+            <Text style={[styles.name, { color: theme.primary }]}>
+              {item?.name || item?.symbol}
+            </Text>
+          )}
+          {layoutMode === 2 && (
+            <>
+              <View style={styles.icon}>
+                {/* <CryptoIcon
+                  name={_toLower(item?.name)}
+                  size={25}
+                  style={styles.icon}
+                /> */}
+              </View>
+              <Text style={[styles.name, { color: theme.primary }]}>
+                {item?.name || item?.symbol}
+              </Text>
+            </>
+          )}
+        </View>
+        {layoutMode === 0 && (
+          <View style={styles.layout1_price}>
+            <TickerPrice
+              titleStyle={{ color: theme.secondary }}
+              closePrice={closePrice}
+              theme={theme}
             />
-          </TouchableOpacity>
-          <View style={styles.icon}>
-            {/* <CryptoIcon
-              name={_toLower(item?.name)}
-              size={25}
-              style={styles.icon}
-            /> */}
           </View>
-          <Text style={[styles.name, { color: theme.primary }]}>
-            {item?.name || item?.symbol}
-          </Text>
-        </View>
-        <View style={styles.layout1_price}>
-          <TickerPrice
-            titleStyle={{ color: theme.secondary }}
-            closePrice={closePrice}
-            theme={theme}
-          />
-        </View>
-        <View style={styles.layout1_change}>
+        )}
+        <View
+          style={[
+            layoutMode === 0 && [styles.layout1_change],
+            layoutMode === 1 && [styles.layout2_change],
+            layoutMode === 2 && [styles.layout3_change],
+          ]}
+        >
+          {[1, 2].includes(layoutMode) && (
+            <Text style={[styles.price, { color: theme.primary }]}>
+              {closePrice}
+            </Text>
+          )}
           <Change42Hr
             priceChangePercentage={parseFloat(
               item?.priceChangePercentage
             ).toFixed(2)}
             theme={theme}
+            showBorder={layoutMode === 0}
+            containerStyle={layoutMode === 2 && styles.layout2Change24}
           />
         </View>
+        {layoutMode === 2 && (
+          <View style={styles.layout3Star}>
+            <TouchableOpacity onPress={onToggleFav} style={styles.starButton}>
+              <Entypo
+                name='star'
+                size={22}
+                color={isFavourite ? theme.fav : theme.iconInActive}
+              />
+            </TouchableOpacity>
+          </View>
+        )}
       </View>
     </View>
   )
@@ -111,6 +173,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-start',
   },
+  layout2_coin: {
+    width: '100%',
+  },
   layout1_price: {
     width: '30%',
     alignItems: 'center',
@@ -121,4 +186,40 @@ const styles = StyleSheet.create({
   starButton: { paddingRight: 10 },
   icon: { width: 25, height: 25 },
   name: { paddingLeft: 15, fontWeight: '600', fontSize: 15 },
+  layout2Container: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    height: 60,
+    marginVertical: 8,
+    paddingHorizontal: 8,
+    borderRadius: 4,
+  },
+  price: { fontSize: 13, marginBottom: 6 },
+  layout2_change: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'flex-end',
+  },
+  layout3Container: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    margin: 4,
+    borderRadius: 4,
+    padding: 6,
+  },
+  layout3_change: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'flex-end',
+    width: '100%',
+  },
+  layout3Star: {
+    width: '100%',
+  },
+  layout2Change24: {
+    paddingHorizontal: 0,
+    justifyContent: 'flex-end',
+  },
 })

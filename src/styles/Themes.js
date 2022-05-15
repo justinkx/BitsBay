@@ -10,6 +10,7 @@ const Themes = {
     fav: '#FCD535',
     tradeGreen: '#00c582',
     tradeRed: '#f84960',
+    tickerCard: '#364359',
   },
   dark: {
     key: 'dark',
@@ -22,6 +23,7 @@ const Themes = {
     fav: '#FCD535',
     tradeGreen: '#00c582',
     tradeRed: '#f84960',
+    tickerCard: '#364359',
   },
 }
 
