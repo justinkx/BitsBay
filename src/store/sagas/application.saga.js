@@ -31,7 +31,6 @@ function* handleAppStateChange(nextState) {
   yield put(updateAppState(nextState))
 
   const isSocketOnline = yield select(isSocketLiveSelector)
-  console.log({ nextState, isSocketOnline })
   if (nextState === 'background') {
     yield put(disconnectSocket())
   } else if (nextState === 'active') {

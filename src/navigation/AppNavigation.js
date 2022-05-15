@@ -13,6 +13,9 @@ export default function AppNavigation() {
         options={{
           headerShown: false,
           headerHideShadow: true,
+          cardStyle: {
+            backgroundColor: 'transparent',
+          },
         }}
         name={APP}
         component={TabNavigator}

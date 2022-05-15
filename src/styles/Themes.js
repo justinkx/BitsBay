@@ -1,13 +1,29 @@
 const Themes = {
   light: {
     key: 'light',
-    backgroundColor: '#ffffff',
-    color: '#000000',
+    primary: 'black',
+    secondary: 'white',
+    iconActive: '#0ebef3',
+    iconInActive: '#c3ccd8',
+    backgroundColor: '#35558b',
+    card: '#eaedf1',
+    fav: '#FCD535',
+    tradeGreen: '#00c582',
+    tradeRed: '#f84960',
+    tickerCard: '#364359',
   },
   dark: {
     key: 'dark',
-    backgroundColor: '#2D3436',
-    color: '#ffffff',
+    primary: 'white',
+    secondary: 'black',
+    iconActive: '#0ebef3',
+    iconInActive: '#70839d',
+    backgroundColor: '#21293a',
+    card: '#37445a',
+    fav: '#FCD535',
+    tradeGreen: '#00c582',
+    tradeRed: '#f84960',
+    tickerCard: '#364359',
   },
 }
 

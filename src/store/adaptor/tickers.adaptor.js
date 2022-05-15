@@ -23,7 +23,8 @@ export const tickerAdaptor = (data) => {
     F: firstTradeId, // First trade ID
     L: lastTradeId, // Last trade Id
     n: totalNumberOfTrades, // Total number of trades
-  } = data;
+  } = data
+
   return {
     eventType,
     eventTime,
@@ -48,13 +49,14 @@ export const tickerAdaptor = (data) => {
     firstTradeId,
     lastTradeId,
     totalNumberOfTrades,
-  };
-};
+  }
+}
 
-export const tickerTransform = (tickers = []) => tickers.reduce((tickerObj, item) => {
-  const ticker = tickerAdaptor(item);
-  return {
-    ...tickerObj,
-    [ticker.symbol]: { ...ticker },
-  };
-}, {});
+export const tickerTransform = (tickers = []) =>
+  tickers.reduce((tickerObj, item) => {
+    const ticker = tickerAdaptor(item)
+    return {
+      ...tickerObj,
+      [ticker.symbol]: { ...ticker },
+    }
+  }, {})
