@@ -20,10 +20,7 @@ export default function MarketReducer(state = initialState, action) {
     case SAVE_TICKER:
       return {
         ...state,
-        assets: {
-          ...state.assets,
-          ..._merge({ ...state.assets }, action.ticker),
-        },
+        assets: _merge({}, state.assets, action.ticker),
       }
     default:
       return { ...state }

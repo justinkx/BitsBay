@@ -35,17 +35,13 @@ const CompactListItem = ({ symbol = 'BTCBUSD', layoutMode, theme }) => {
     [isFavourite, symbol, dispatch]
   )
 
-  if (symbol === 'BTCBUSD') {
-    console.log(item, isFavourite)
-  }
-
   const closePrice = useMemo(() => {
     const price = parseFloat(item?.closePrice || item?.price)
     if (!price) return ''
-    if (price < 1) return price
-    if (price > 999) return price
-    return price
-  }, [item?.lastPrice])
+    if (price < 1) return price.toFixed(6)
+    if (price > 999) return price.toFixed(2)
+    return price.toFixed(4)
+  }, [item?.closePrice])
 
   return (
     <View style={styles.container}>
@@ -70,7 +66,11 @@ const CompactListItem = ({ symbol = 'BTCBUSD', layoutMode, theme }) => {
           </Text>
         </View>
         <View style={styles.layout1_price}>
-          <TickerPrice closePrice={closePrice} theme={theme} />
+          <TickerPrice
+            titleStyle={{ color: theme.secondary }}
+            closePrice={closePrice}
+            theme={theme}
+          />
         </View>
         <View style={styles.layout1_change} />
       </View>

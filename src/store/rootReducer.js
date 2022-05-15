@@ -26,7 +26,7 @@ const storagePersistConfig = {
 const rootReducer = combineReducers({
   application: ApplicationReducer,
   market: MarketReducer,
-  storage: StorageReducer,
+  storage: persistReducer(storagePersistConfig, StorageReducer),
 })
 
-export default rootReducer
+export default persistReducer(rootPersistConfig, rootReducer)

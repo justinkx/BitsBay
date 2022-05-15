@@ -12,7 +12,7 @@ const TickerPrice = ({
   const lastPriceRef = useRef(0)
 
   const {
-    lastPriceColor = '',
+    lastPriceColor = theme.secondary,
     isHigh = null,
     showIcon = true,
   } = useMemo(() => {
