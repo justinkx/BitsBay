@@ -54,7 +54,7 @@ function* getTickerSaga() {
   yield put(
     send({
       method: 'SUBSCRIBE',
-      params: ['!miniTicker@arr'],
+      params: ['!ticker@arr'],
       id: 1,
     })
   )

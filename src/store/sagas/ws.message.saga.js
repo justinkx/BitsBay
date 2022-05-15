@@ -17,7 +17,7 @@ function* reduxWebsocketMessage(action) {
 
   try {
     switch (parsedMessage?.stream) {
-      case '!miniTicker@arr': {
+      case '!ticker@arr': {
         const tickers = tickerTransform(parsedMessage.data)
         const keys = yield select(getAssetKeysSelector)
         return yield put(saveTicker(_pick(tickers, keys)))

@@ -46,5 +46,5 @@ const MarketList = ({ tag, isFav, isAll }) => {
 export default memo(MarketList)
 
 const styles = StyleSheet.create({
-  container: { padding: 8, flex: 1 },
+  container: { flex: 1 },
 })

@@ -14,6 +14,7 @@ import {
   removeFromFavourites,
 } from '../../store/actions/storage.actions'
 import TickerPrice from './TickerPrice'
+import Change42Hr from './Change42Hr'
 
 const CompactListItem = ({ symbol = 'BTCBUSD', layoutMode, theme }) => {
   const dispatch = useDispatch()
@@ -36,16 +37,24 @@ const CompactListItem = ({ symbol = 'BTCBUSD', layoutMode, theme }) => {
   )
 
   const closePrice = useMemo(() => {
-    const price = parseFloat(item?.closePrice || item?.price)
-    if (!price) return ''
+    const price = parseFloat(item?.lastPrice || item?.price)
+    if (!price) return 0
     if (price < 1) return price.toFixed(6)
-    if (price > 999) return price.toFixed(2)
-    return price.toFixed(4)
-  }, [item?.closePrice])
+    if (price < 9) return price.toFixed(6)
+    if (price < 99) return price.toFixed(5)
+    if (price < 999) return price.toFixed(4)
+    if (price < 9999) return price.toFixed(3)
+    return price.toFixed(2)
+  }, [item?.lastPrice])
 
   return (
     <View style={styles.container}>
-      <View style={styles.layout1Container}>
+      <View
+        style={[
+          styles.layout1Container,
+          { borderBottomColor: theme.iconInActive },
+        ]}
+      >
         <View style={styles.layout1_coin}>
           <TouchableOpacity onPress={onToggleFav} style={styles.starButton}>
             <Entypo
@@ -62,7 +71,7 @@ const CompactListItem = ({ symbol = 'BTCBUSD', layoutMode, theme }) => {
             /> */}
           </View>
           <Text style={[styles.name, { color: theme.primary }]}>
-            {item?.symbol || item?.name}
+            {item?.name || item?.symbol}
           </Text>
         </View>
         <View style={styles.layout1_price}>
@@ -72,7 +81,14 @@ const CompactListItem = ({ symbol = 'BTCBUSD', layoutMode, theme }) => {
             theme={theme}
           />
         </View>
-        <View style={styles.layout1_change} />
+        <View style={styles.layout1_change}>
+          <Change42Hr
+            priceChangePercentage={parseFloat(
+              item?.priceChangePercentage
+            ).toFixed(2)}
+            theme={theme}
+          />
+        </View>
       </View>
     </View>
   )
@@ -86,6 +102,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    paddingVertical: 8,
+    borderBottomWidth: StyleSheet.hairlineWidth,
   },
   layout1_coin: {
     flexDirection: 'row',

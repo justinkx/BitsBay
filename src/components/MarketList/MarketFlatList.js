@@ -24,5 +24,5 @@ const MarketFlatList = ({ assets, layoutMode }) => {
 export default memo(MarketFlatList)
 
 const styles = StyleSheet.create({
-  list: { paddingVertical: 5 },
+  list: { padding: 8 },
 })

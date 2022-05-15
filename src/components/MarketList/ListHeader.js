@@ -1,6 +1,10 @@
 import { StyleSheet, View, TouchableOpacity } from 'react-native'
 import React, { memo } from 'react'
-import { Ionicons, FontAwesome5, MaterialCommunityIcons } from '@expo/vector-icons'
+import {
+  Ionicons,
+  FontAwesome5,
+  MaterialCommunityIcons,
+} from '@expo/vector-icons'
 
 import SearchBar from '../SearchBar'
 import { withTheme } from '../../hoc/withTheme'
@@ -49,6 +53,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    padding: 8,
   },
   gridView: {
     flexDirection: 'row',
