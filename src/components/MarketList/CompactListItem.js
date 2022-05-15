@@ -83,11 +83,11 @@ const CompactListItem = ({ symbol = 'BTCBUSD', layoutMode, theme }) => {
           )}
           {layoutMode !== 2 && (
             <View style={styles.icon}>
-              {/* <CryptoIcon
+              <CryptoIcon
                 name={_toLower(item?.name)}
                 size={25}
                 style={styles.icon}
-              /> */}
+              />
             </View>
           )}
           {layoutMode !== 2 && (
@@ -98,11 +98,11 @@ const CompactListItem = ({ symbol = 'BTCBUSD', layoutMode, theme }) => {
           {layoutMode === 2 && (
             <>
               <View style={styles.icon}>
-                {/* <CryptoIcon
+                <CryptoIcon
                   name={_toLower(item?.name)}
                   size={25}
                   style={styles.icon}
-                /> */}
+                />
               </View>
               <Text style={[styles.name, { color: theme.primary }]}>
                 {item?.name || item?.symbol}
