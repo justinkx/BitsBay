@@ -3,15 +3,12 @@ import React, { memo, useCallback } from 'react'
 
 import CompactListItem from './CompactListItem'
 
-const MarketFlatList = ({ assets, layoutMode, isFocused }) => {
+const MarketFlatList = ({ assets, layoutMode }) => {
   const renderItem = useCallback(
-    ({ item }) => <CompactListItem item={item} layoutMode={layoutMode} />,
+    ({ item }) => <CompactListItem symbol={item} layoutMode={layoutMode} />,
     [layoutMode]
   )
-  const keyExtractor = useCallback(
-    (item, index) => item.id || index.toString(),
-    []
-  )
+  const keyExtractor = useCallback((item) => item, [])
 
   return (
     <FlatList

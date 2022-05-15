@@ -1,5 +1,5 @@
 import { StyleSheet, TouchableOpacity, View, Text } from 'react-native'
-import React, { memo, useCallback } from 'react'
+import React, { memo, useCallback, useMemo } from 'react'
 import { Entypo } from '@expo/vector-icons'
 import _toLower from 'lodash/toLower'
 import _includes from 'lodash/includes'
@@ -8,28 +8,44 @@ import { useSelector, shallowEqual, useDispatch } from 'react-redux'
 import { withTheme } from '../../hoc/withTheme'
 import CryptoIcon from '../Icons'
 import { isFavPairSelector } from '../../store/selectors/storage.selector'
+import { getAssetBySymbol } from '../../store/selectors/market.selector'
 import {
   addToFavourites,
   removeFromFavourites,
 } from '../../store/actions/storage.actions'
+import TickerPrice from './TickerPrice'
 
-const CompactListItem = ({ item, layoutMode, theme }) => {
+const CompactListItem = ({ symbol = 'BTCBUSD', layoutMode, theme }) => {
   const dispatch = useDispatch()
-
   const isFavourite = useSelector(
-    (state) => isFavPairSelector(state)(item?.symbol),
+    (state) => isFavPairSelector(state)(symbol),
+    shallowEqual
+  )
+
+  const item = useSelector(
+    (state) => getAssetBySymbol(state)(symbol),
     shallowEqual
   )
 
   const onToggleFav = useCallback(
     () =>
       dispatch(
-        isFavourite
-          ? removeFromFavourites(item?.symbol)
-          : addToFavourites(item?.symbol)
+        isFavourite ? removeFromFavourites(symbol) : addToFavourites(symbol)
       ),
-    [isFavourite, item?.symbol, dispatch]
+    [isFavourite, symbol, dispatch]
   )
+
+  if (symbol === 'BTCBUSD') {
+    console.log(item, isFavourite)
+  }
+
+  const closePrice = useMemo(() => {
+    const price = parseFloat(item?.closePrice || item?.price)
+    if (!price) return ''
+    if (price < 1) return price
+    if (price > 999) return price
+    return price
+  }, [item?.lastPrice])
 
   return (
     <View style={styles.container}>
@@ -50,14 +66,11 @@ const CompactListItem = ({ item, layoutMode, theme }) => {
             /> */}
           </View>
           <Text style={[styles.name, { color: theme.primary }]}>
-            {item?.name}
+            {item?.symbol || item?.name}
           </Text>
         </View>
         <View style={styles.layout1_price}>
-          <Text style={[styles.price, { color: theme.primary }]}>
-            $
-            {item?.price}
-          </Text>
+          <TickerPrice closePrice={closePrice} theme={theme} />
         </View>
         <View style={styles.layout1_change} />
       </View>
@@ -74,11 +87,20 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  layout1_coin: { flexDirection: 'row', width: '30%' },
-  layout1_price: { width: '30%' },
+  layout1_coin: {
+    flexDirection: 'row',
+    width: '30%',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+  },
+  layout1_price: {
+    width: '30%',
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+  },
   layout1_change: {},
   starButton: { paddingRight: 10 },
   icon: { width: 25, height: 25 },
   name: { paddingLeft: 15, fontWeight: '600', fontSize: 15 },
-  price: { fontSize: 14, fontWeight: '600' },
 })

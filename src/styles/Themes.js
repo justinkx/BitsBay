@@ -8,6 +8,8 @@ const Themes = {
     backgroundColor: '#35558b',
     card: '#eaedf1',
     fav: '#FCD535',
+    tradeGreen: '#00c582',
+    tradeRed: '#f84960',
   },
   dark: {
     key: 'dark',
@@ -18,6 +20,8 @@ const Themes = {
     backgroundColor: '#21293a',
     card: '#37445a',
     fav: '#FCD535',
+    tradeGreen: '#00c582',
+    tradeRed: '#f84960',
   },
 }
 

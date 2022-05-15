@@ -1,4 +1,4 @@
-import _remove from 'lodash/remove'
+import _pull from 'lodash/pull'
 
 import {
   REMOVE_FROM_FAVOURITES,
@@ -16,10 +16,7 @@ export default function StorageReducer(state = initialState, action) {
     case REMOVE_FROM_FAVOURITES:
       return {
         ...state,
-        favourites: _remove(
-          state.favourites,
-          (symbol) => symbol === action.symbol
-        ),
+        favourites: _pull([...state.favourites], action.symbol),
       }
     default:
       return { ...state }
